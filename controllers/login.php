@@ -1,5 +1,7 @@
 <?php 
 
+include "connection.php";
+
 // Set the response content type to JSON
 header('Content-Type: application/json');
 
@@ -8,6 +10,17 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 $username = $data["uname"];
 $password = $data["pword"];
+
+//SQL query : SELECT
+$sql = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    //user found
+    echo "valid";
+} else {
+    echo "invalid";
+}
 
 
 
